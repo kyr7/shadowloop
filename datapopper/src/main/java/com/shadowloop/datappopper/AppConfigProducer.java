@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.concurrent.ExecutionException;
 
 @Configuration
-public class AppConfig {
+public class AppConfigProducer {
 
     // Configure KafkaAdmin to manage Kafka topics
     @Bean

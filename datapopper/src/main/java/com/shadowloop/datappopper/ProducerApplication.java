@@ -4,12 +4,15 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.kafka.core.KafkaTemplate;
 
-@SpringBootApplication
+@Configuration
+@EnableAutoConfiguration
+@Import({ AppConfigProducer.class, AppConfigConsumer.class })
 public class ProducerApplication {
 
     public static void main(String[] args) {
@@ -18,6 +21,9 @@ public class ProducerApplication {
 
     @Autowired
     KafkaTopicCreator kafkaTopicCreator;
+
+    @Autowired(required = false)
+    KafkaListenerBean kafkaListenerBean;
 
     @PostConstruct
     public void init() {
@@ -29,12 +35,6 @@ public class ProducerApplication {
         return args -> {
             template.send("topic1", "test");
         };
-    }
-
-    //todo for test purpose
-    @KafkaListener(id = "myId", topics = "topic1")
-    public void listen(String in) {
-        System.out.println(in);
     }
 
 }
