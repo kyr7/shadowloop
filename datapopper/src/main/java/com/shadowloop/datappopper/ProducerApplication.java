@@ -33,7 +33,7 @@ public class ProducerApplication {
     @Bean
     public ApplicationRunner runner(KafkaTemplate<String, String> template) {
         return args -> {
-            template.send("topic1", "test");
+            template.send("topic1", "Hello Kafka");
         };
     }
 
