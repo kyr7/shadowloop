@@ -22,7 +22,7 @@ public class AppConfigConsumer {
 
 class KafkaListenerBean {
 
-    Logger logger = LoggerFactory.getLogger(AppConfigConsumer.class);
+    Logger logger = LoggerFactory.getLogger(getClass());
 
     @KafkaListener(id = "myId", topics = "topic1")
     public void listen(String in) {
